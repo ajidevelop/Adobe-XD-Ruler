@@ -1,13 +1,13 @@
 {
-  "summary" : "Summary of your plugin",
+  "summary" : "Ruler for Adobe XD",
   "languages" : [ "en" ],
-  "author" : "Your Name",
+  "author" : "Loba Ajisafe",
   "name" : "Ruler",
   "host" : {
     "app" : "XD",
     "minVersion" : "13.0"
   },
-  "description" : "Description of your plugin.",
+  "description" : "Ruler for Adobe XD.",
   "helpUrl" : "https://mywebsite.com/help",
   "id" : "ca22d7a7",
   "icons" : [ {
