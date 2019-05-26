@@ -32,9 +32,10 @@
     "height" : 192
   } ],
   "uiEntryPoints" : [ {
-    "label" : "Create Rectangle",
+    "label" : "Add Ruler to Artboard",
     "type" : "menu",
-    "commandId" : "createRectangle"
+    "commandId" : "createRuler",
+    "shortcut" : {"mac" : "Cmd+Q", "win" : "Ctrl+Q"}
   } ],
-  "version" : "0.0.1"
+  "version" : "0.0.2"
 }
