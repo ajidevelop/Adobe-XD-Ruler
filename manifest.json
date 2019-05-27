@@ -8,7 +8,7 @@
     "minVersion" : "13.0"
   },
   "description" : "Ruler for Adobe XD.",
-  "helpUrl" : "https://mywebsite.com/help",
+  "helpUrl" : "https://github.com/ajidevelop/Adobe-XD-Ruler",
   "id" : "ca22d7a7",
   "icons" : [ {
     "path" : "images/icon@1x.png",
@@ -34,8 +34,20 @@
   "uiEntryPoints" : [ {
     "label" : "Add Ruler to Artboard",
     "type" : "menu",
-    "commandId" : "createRuler",
-    "shortcut" : {"mac" : "Cmd+Q", "win" : "Ctrl+Q"}
-  } ],
-  "version" : "0.0.2"
+    "menuItems": [
+        {
+            "type": "menu",
+            "label": "Vertical Ruler",
+            "commandId": "createVerticalRuler",
+            "shortcut" : {"mac" : "Cmd+Q", "win" : "Ctrl+Q"}
+        },
+        {
+            "type": "menu",
+            "label": "Horizontal Ruler",
+            "commandId": "createHorizontalRuler",
+            "shortcut" : {"mac" : "Cmd+W", "win" : "Ctrl+W"}
+        }
+    ]
+} ],
+  "version" : "0.1.3"
 }
