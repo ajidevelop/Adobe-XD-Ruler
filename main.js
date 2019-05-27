@@ -4,7 +4,7 @@ const viewport =  require("viewport");
 const interactions = require("interactions");
 // const selection = require("selection")
 
-function setVerticalPercantageLine(selection, rulerHeight, rulerWidth) {
+function setVerticalPercentageLine(selection, rulerHeight, rulerWidth) {
     var x = 0; // starting x value for line
 
     var linesForPercentage = [];
@@ -67,7 +67,69 @@ function setVerticalPercantageLine(selection, rulerHeight, rulerWidth) {
     return linesForPercentage;
 }
 
-function rulerHandlerFunction(selection) {
+function setHorizontalPercentageLine(selection, rulerHeight, rulerWidth) {
+    var y = rulerHeight; // starting x value for line
+
+    var linesForPercentage = [];
+
+    // markers for every 10%
+    for (var i = 0; i < 9; i++) {
+        const line = new Line();
+        y -= rulerHeight / 10;
+
+        line.setStartEnd(-rulerWidth, y, -rulerWidth * .35, y)
+        line.strokeEnabled = true;
+        line.stroke = new Color(1, 1, 1, 1);
+        line.strokeWidth = 3;
+
+        linesForPercentage.push(line);
+        selection.editContext.addChild(line);
+    }
+
+    // markers for every 5%
+    y = rulerHeight / 20 // reset x to 5%
+
+    for (var i = 0; i < 10; i++) {
+        const line = new Line();
+
+        line.setStartEnd(-rulerWidth, y, -rulerWidth * .5, y)
+        line.strokeEnabled = true;
+        line.stroke = new Color(1, 1, 1, 1);
+        line.strokeWidth = 2;
+
+        linesForPercentage.push(line);
+        selection.editContext.addChild(line);
+
+        y += rulerHeight / 10;
+    }
+
+    // markers for every 1%
+    y = rulerHeight / 100 // reset x to 1%
+
+    for (var i = 1; i < 101; i++) { // lines for increments of 5
+
+        if ((i % 5 == 0 || i % 10 == 0) && i != 0) {
+            y += rulerHeight / 100;
+            console.log(y);
+            continue;
+        }
+        const line = new Line();
+
+        line.setStartEnd(-rulerWidth, y, -rulerWidth * .75, y)
+        line.strokeEnabled = true;
+        line.stroke = new Color(1, 1, 1, 1);
+        line.strokeWidth = 1;
+
+        linesForPercentage.push(line);
+        selection.editContext.addChild(line);
+
+        y += rulerHeight / 100;
+    }
+
+    return linesForPercentage;
+}
+
+function rulerHandlerFunction(selection, vertical) {
 
     var grey = new Color("949494");
     grey.a = 115;
@@ -78,23 +140,43 @@ function rulerHandlerFunction(selection) {
         return;
     }
 
-    const rulerWidth = selection.items[0].width
-    const rulerHeight = 150;
+    if (vertical === true) {
+        const rulerWidth = selection.items[0].width
+        const rulerHeight = 150;
 
-    const horizontalRuler = new Rectangle();
-    horizontalRuler.width = rulerWidth;
-    horizontalRuler.height = rulerHeight;
-    horizontalRuler.fill = grey;
+        const horizontalRuler = new Rectangle();
+        horizontalRuler.width = rulerWidth;
+        horizontalRuler.height = rulerHeight;
+        horizontalRuler.fill = grey;
 
-    selection.insertionParent.addChild(horizontalRuler);
-    horizontalRuler.moveInParentCoordinates(0, -rulerHeight - 10);
+        selection.insertionParent.addChild(horizontalRuler);
+        horizontalRuler.moveInParentCoordinates(0, -rulerHeight - 10);
 
-    var lines = setVerticalPercantageLine(selection, rulerHeight + 10, rulerWidth);
-    lines.push(horizontalRuler)
-    selection.items = lines // change context to group of lines
-    commands.group("Ruler"); // group lines and horizontalLine
+        var lines = setVerticalPercentageLine(selection, rulerHeight + 10, rulerWidth);
+        lines.push(horizontalRuler)
+        selection.items = lines // change context to group of lines
+        commands.group("Horizontal Ruler"); // group lines and horizontalLine
 
-    console.log(selection.items[0].globalX); // print artboard width to console
+        console.log(selection.items[0].globalX); // print artboard width to console
+    } else {
+        const rulerWidth = 150;
+        const rulerHeight = selection.items[0].height;
+
+        const verticalRuler = new Rectangle();
+        verticalRuler.width = rulerWidth;
+        verticalRuler.height = rulerHeight;
+        verticalRuler.fill = grey;
+
+        selection.insertionParent.addChild(verticalRuler);
+        verticalRuler.moveInParentCoordinates(-rulerWidth - 10, 0);
+
+        var lines = setHorizontalPercentageLine(selection, rulerHeight, rulerWidth + 10);
+        lines.push(verticalRuler)
+        selection.items = lines // change context to group of lines
+        commands.group("Verical Ruler"); // group lines and horizontalLine
+
+        console.log(); // print artboard width to console
+    }
 
 }
 
@@ -133,10 +215,19 @@ function createDialog() {
     return dialog;
 }
 
+function verticalRuler(selection) {
+    rulerHandlerFunction(selection, true);
+}
+
+function horizontalRuler(selection) {
+    rulerHandlerFunction(selection, false);
+}
+
 
 
 module.exports = {
     commands: {
-        createRuler: rulerHandlerFunction
+        createVerticalRuler: verticalRuler,
+        createHorizontalRuler: horizontalRuler
     }
 };
