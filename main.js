@@ -72,6 +72,12 @@ function rulerHandlerFunction(selection) {
     var grey = new Color("949494");
     grey.a = 115;
 
+    if (selection.items.length == 0) {
+        const dialog = getDialog();
+        dialog.showModal();
+        return;
+    }
+
     const rulerWidth = selection.items[0].width
     const rulerHeight = 150;
 
@@ -90,6 +96,41 @@ function rulerHandlerFunction(selection) {
 
     console.log(selection.items[0].globalX); // print artboard width to console
 
+}
+
+function getDialog() {
+    let dialog =  document.querySelector("dialog");
+
+    if (dialog) {
+        console.log("Dialog already running");
+        return dialog;
+    }
+
+    return createDialog();
+}
+
+function createDialog() {
+    document.body.innerHTML = `
+        <style>
+            form {
+                width: 400px;
+            }
+        </style>
+        <dialog>
+            <form method="dialog">
+                <h1>Please select an Artboard</h1>
+                <footer>
+                    <button id="ok">OK</button>
+                </footer>
+            </form>
+        </dialog>
+    `;
+
+    const [dialog, form, ok] = [`dialog`, `form`, "#ok"].map(s => document.querySelector(s));
+
+    ok.addEventListener("click", () => dialog.close("reasonCanceled"));
+
+    return dialog;
 }
 
 
