@@ -11,25 +11,25 @@
   "helpUrl" : "https://github.com/ajidevelop/Adobe-XD-Ruler",
   "id" : "ca22d7a7",
   "icons" : [ {
-    "path" : "images/icon@1x.png",
+    "path" : "images/ruler@1x.png",
     "width" : 24,
+    "height" : 12
+  }, {
+    "path" : "images/ruler@2x.png",
+    "width" : 48,
     "height" : 24
   }, {
-    "path" : "images/icon@2x.png",
-    "width" : 48,
+    "path" : "images/ruler@3x.png",
+    "width" : 96,
     "height" : 48
   }, {
-    "path" : "images/icon@3x.png",
-    "width" : 96,
-    "height" : 96
-  }, {
-    "path" : "images/icon@4x.png",
+    "path" : "images/ruler@4x.png",
     "width" : 144,
-    "height" : 144
+    "height" : 72
   }, {
-    "path" : "images/icon@5x.png",
+    "path" : "images/ruler@5x.png",
     "width" : 192,
-    "height" : 192
+    "height" : 96
   } ],
   "uiEntryPoints" : [ {
     "label" : "Add Ruler to Artboard",
