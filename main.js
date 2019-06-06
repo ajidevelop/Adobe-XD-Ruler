@@ -4,6 +4,16 @@ const viewport =  require("viewport");
 const interactions = require("interactions");
 // const selection = require("selection")
 
+function checkSelection(selection) {
+    if (selection.items.length == 0) {
+        const dialog = getDialog();
+        dialog.showModal();
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function setVerticalPercentageLine(selection, rulerHeight, rulerWidth) {
     var x = 0; // starting x value for line
 
@@ -134,9 +144,7 @@ function rulerHandlerFunction(selection, vertical) {
     var grey = new Color("949494");
     grey.a = 115;
 
-    if (selection.items.length == 0) {
-        const dialog = getDialog();
-        dialog.showModal();
+    if (!checkSelection(selection)) {
         return;
     }
 
@@ -223,11 +231,54 @@ function horizontalRuler(selection) {
     rulerHandlerFunction(selection, false);
 }
 
+function createCustomRulerDialog() {
+    document.body.innerHTML = `
+        <style>
+            form {
+                width: 400px;
+            }
+
+            button {
+                width: 45%;
+                padding: 0 2.5%;
+            }
+            div {
+                display: inline-block;
+            }
+        </style>
+        <dialog>
+            <form method="dialog">
+                <h1>Please select an Artboard1</h1>
+                <div>
+                    <button id="vert">Vertical</button>
+                    <button id="hor">Horizontal</button>
+                </div>
+            </form>
+        </dialog>
+    `;
+
+    const [dialog, form] = [`dialog`, `form`].map(s => document.querySelector(s));
+
+    return dialog;
+}
+
+function getCustomRulerDialog() {
+    let dialog = document.querySelector("dialog");
+
+    if (dialog) {
+        console.log("Dialog already running");
+        return dialog;
+    }
+
+    return createCustomRulerDialog();
+}
+
 
 
 module.exports = {
     commands: {
         createVerticalRuler: verticalRuler,
-        createHorizontalRuler: horizontalRuler
+        createHorizontalRuler: horizontalRuler,
+        createCustomRuler: getCustomRulerDialog
     }
 };
