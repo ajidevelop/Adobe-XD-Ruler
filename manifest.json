@@ -13,23 +13,23 @@
   "icons" : [ {
     "path" : "images/ruler@1x.png",
     "width" : 24,
-    "height" : 12
+    "height" : 24
   }, {
     "path" : "images/ruler@2x.png",
     "width" : 48,
-    "height" : 24
+    "height" : 48
   }, {
     "path" : "images/ruler@3x.png",
     "width" : 96,
-    "height" : 48
+    "height" : 96
   }, {
     "path" : "images/ruler@4x.png",
     "width" : 144,
-    "height" : 72
+    "height" : 144
   }, {
     "path" : "images/ruler@5x.png",
     "width" : 192,
-    "height" : 96
+    "height" : 192
   } ],
   "uiEntryPoints" : [ {
     "label" : "Add Ruler to Artboard",
@@ -37,17 +37,26 @@
     "menuItems": [
         {
             "type": "menu",
-            "label": "Vertical Ruler",
-            "commandId": "createVerticalRuler",
-            "shortcut" : {"mac" : "Cmd+Q", "win" : "Ctrl+Q"}
+            "label": "Vertical Ruler by Percent",
+            "commandId": "createVerticalRulerPercent",
         },
         {
             "type": "menu",
-            "label": "Horizontal Ruler",
-            "commandId": "createHorizontalRuler",
-            "shortcut" : {"mac" : "Cmd+W", "win" : "Ctrl+W"}
+            "label": "Vertical Ruler by Pixels",
+            "commandId": "createVerticalRulerPixel",
+
+        },
+        {
+            "type": "menu",
+            "label": "Horizontal Ruler by Percent",
+            "commandId": "createHorizontalRulerPercent",
+        },
+        {
+            "type": "menu",
+            "label": "Horizontal Ruler by Pixels",
+            "commandId": "createHorizontalRulerPixel",
         }
     ]
 } ],
-  "version" : "0.1.4"
+  "version" : "0.1.6"
 }

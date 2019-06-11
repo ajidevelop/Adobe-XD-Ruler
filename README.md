@@ -2,6 +2,7 @@
 
 Adobe XD currently doesn't ship with a ruler of any kind and it doesn't seem like one will provided in the foreseeable future. This plugin bridges that gap and provides a versatile ruler to measure elements in an Artboard.
 
+
 # Instructions to Download
 
 1. Go to either Command Prompt on Windows or Terminal on Mac and type this command where you would like to install the plugin;
@@ -22,7 +23,9 @@ You should see this message from Adobe XD asking to install.
 
 ## Update
 
-1. To update the plugin go to either Command Prompt on Windows or Terminal on Mac and navigate to the directory of your download.
+1. __Star__ and __watch__ the repository to keep track of updates.
+
+2. To update the plugin go to either Command Prompt on Windows or Terminal on Mac and navigate to the directory of your download.
 
 2. Type this command:
 
@@ -37,7 +40,7 @@ If no Artboard is chosen. The plugin will throw a warning message asking you to 
 
 [![Alt text](https://img.youtube.com/vi/R0Rhnuvwx48/0.jpg)](https://www.youtube.com/watch?v=R0Rhnuvwx48)
 
-Currently the ruler hashes are only divided by the percentage of the page they take up. Rulers can also be made for specific elements on the page to see how much percentage they take in the container they occupy. Every long mark represents 10%, next in size represents 5%, and the smallest ones representing 1% each.
+The ruler hashes are divided by the percentage or pixels of the page they take up. Rulers can also be made for specific elements on the page to see how much percentage they take in the container they occupy. Every long mark represents 10%, next in size represents 5%, and the smallest ones representing 1% each.
 
  If an element is locked, it needs to be unlocked to add a ruler for the element. Then you can lock it again after the rule has been added. Anther example in the following video.
 
@@ -47,6 +50,7 @@ Currently the ruler hashes are only divided by the percentage of the page they t
 # Upcoming Features
 
 - ##### Custom Rulers in sizes
-- ##### Scaling in pixels
+- ##### Names for Rulers to help differentiate which is separated by pixels and percentage
+- ##### GUI to help make rulers faster
 
 Future updates coming soon.
