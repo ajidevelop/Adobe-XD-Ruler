@@ -4,6 +4,145 @@ const viewport =  require("viewport");
 const interactions = require("interactions");
 // const selection = require("selection")
 
+function setVerticalPixelLine(selection, rulerHeight, rulerWidth) {
+    var x = 0; // starting x value for line
+
+    var linesForPixels = [];
+    const longHashValue = 100
+    const n_longHash = Math.round(rulerWidth / longHashValue);
+    const mediumHashValue = longHashValue / 2;
+    const n_mediumHash = Math.round(rulerWidth / mediumHashValue);
+    const smallHashValue = mediumHashValue / 5;
+    const n_smallHash = Math.round(rulerWidth / smallHashValue);
+
+    // markers for every longHashValue
+    for (var i = 0; i < n_longHash; i++) {
+        const line = new Line();
+
+        x += longHashValue;
+
+        line.setStartEnd(x, -rulerHeight, x, -rulerHeight * .35)
+        line.strokeEnabled = true;
+        line.stroke = new Color(1, 1, 1, 1);
+        line.strokeWidth = 3;
+
+        linesForPixels.push(line);
+        selection.editContext.addChild(line);
+    }
+
+    // markers for every mediumHashValue
+    x = mediumHashValue;
+
+    for (var i = 0; i < n_mediumHash; i++) {
+        const line = new Line();
+
+        line.setStartEnd(x, -rulerHeight, x, -rulerHeight * .5)
+        line.strokeEnabled = true;
+        line.stroke = new Color(1, 1, 1, 1);
+        line.strokeWidth = 2;
+
+        linesForPixels.push(line);
+        selection.editContext.addChild(line);
+
+        x += mediumHashValue;
+    }
+
+    // markers for every smallHashValue
+    x = smallHashValue;
+
+    for (var i = 1; i < n_smallHash; i++) { // lines for increments of 5
+
+        if ((i % 5 == 0 || i % 10 == 0) && i != 0) {
+            x += smallHashValue;
+            console.log(x);
+            continue;
+        }
+        const line = new Line();
+
+        line.setStartEnd(x, -rulerHeight, x, -rulerHeight * .75)
+        line.strokeEnabled = true;
+        line.stroke = new Color(1, 1, 1, 1);
+        line.strokeWidth = 1;
+
+        linesForPixels.push(line);
+        selection.editContext.addChild(line);
+
+        x += smallHashValue;
+    }
+
+    return linesForPixels;
+}
+
+function setHorizontalPixelLine(selection, rulerHeight, rulerWidth) {
+    var y = 0; // starting x value for line
+
+    var linesForPixels = [];
+    const longHashValue = 100
+    console.log(rulerHeight);
+    const n_longHash = Math.floor(rulerHeight / longHashValue);
+    const mediumHashValue = longHashValue / 2;
+    const n_mediumHash = Math.floor(rulerHeight / mediumHashValue);
+    const smallHashValue = mediumHashValue / 5;
+    const n_smallHash = Math.floor(rulerHeight / smallHashValue);
+
+    // markers for every 10%
+    for (var i = 0; i < n_longHash; i++) {
+        const line = new Line();
+        y += longHashValue;
+        console.log(y);
+
+        line.setStartEnd(-rulerWidth, y, -rulerWidth * .35, y)
+        line.strokeEnabled = true;
+        line.stroke = new Color(1, 1, 1, 1);
+        line.strokeWidth = 3;
+
+        linesForPixels.push(line);
+        selection.editContext.addChild(line);
+    }
+
+    // markers for every mediumHash
+    y = mediumHashValue;
+
+    for (var i = 0; i < n_mediumHash; i++) {
+        const line = new Line();
+
+        line.setStartEnd(-rulerWidth, y, -rulerWidth * .5, y)
+        line.strokeEnabled = true;
+        line.stroke = new Color(1, 1, 1, 1);
+        line.strokeWidth = 2;
+
+        linesForPixels.push(line);
+        selection.editContext.addChild(line);
+
+        y += mediumHashValue;
+    }
+
+    // markers for every smallHashValue
+    y = smallHashValue;
+
+    for (var i = 1; i < n_smallHash; i++) { // lines for increments of 5
+
+        if ((i % 50 == 0 || i % 100 == 0) && i != 0) {
+            y += smallHashValue;
+            console.log(y);
+            continue;
+        }
+        const line = new Line();
+
+        line.setStartEnd(-rulerWidth, y, -rulerWidth * .75, y)
+        line.strokeEnabled = true;
+        line.stroke = new Color(1, 1, 1, 1);
+        line.strokeWidth = 1;
+
+        linesForPixels.push(line);
+        selection.editContext.addChild(line);
+
+        y += smallHashValue;
+    }
+
+    return linesForPixels;
+}
+
 function setVerticalPercentageLine(selection, rulerHeight, rulerWidth) {
     var x = 0; // starting x value for line
 
@@ -46,8 +185,8 @@ function setVerticalPercentageLine(selection, rulerHeight, rulerWidth) {
 
     for (var i = 1; i < 101; i++) { // lines for increments of 5
 
-        if ((i % 5 == 0 || i % 10 == 0) && i != 0) {
-            x += rulerWidth / 100;
+        if ((i % 50 == 0 || i % 100 == 0) && i != 0) {
+            x += smallHashValue;
             console.log(x);
             continue;
         }
@@ -61,7 +200,7 @@ function setVerticalPercentageLine(selection, rulerHeight, rulerWidth) {
         linesForPercentage.push(line);
         selection.editContext.addChild(line);
 
-        x += rulerWidth / 100;
+        x += smallHashValue;
     }
 
     return linesForPercentage;
@@ -227,7 +366,9 @@ function horizontalRuler(selection) {
 
 module.exports = {
     commands: {
-        createVerticalRuler: verticalRuler,
-        createHorizontalRuler: horizontalRuler
+        createVerticalRulerPercent: verticalRuler,
+        createHorizontalRulerPercent: horizontalRuler,
+        createVerticalRulerPixel: setVerticalPixelLine,
+        createHorizontalRulerPixel: setHorizontalPixelLine
     }
 };
