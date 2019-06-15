@@ -86,10 +86,12 @@ function setHorizontalPixelLine(selection, rulerHeight, rulerWidth) {
     const n_smallHash = Math.floor(rulerHeight / smallHashValue);
 
     // markers for every 10%
+    console.log(n_longHash);
     for (var i = 0; i < n_longHash; i++) {
         const line = new Line();
         y += longHashValue;
         console.log(y);
+
 
         line.setStartEnd(-rulerWidth, y, -rulerWidth * .35, y)
         line.strokeEnabled = true;
@@ -181,12 +183,12 @@ function setVerticalPercentageLine(selection, rulerHeight, rulerWidth) {
     }
 
     // markers for every 1%
-    x = rulerWidth / 100 // reset x to 1%
+    x = rulerWidth / 100; // reset x to 1%
 
     for (var i = 1; i < 101; i++) { // lines for increments of 5
 
         if ((i % 50 == 0 || i % 100 == 0) && i != 0) {
-            x += smallHashValue;
+            x += rulerWidth / 100;
             console.log(x);
             continue;
         }
@@ -200,7 +202,7 @@ function setVerticalPercentageLine(selection, rulerHeight, rulerWidth) {
         linesForPercentage.push(line);
         selection.editContext.addChild(line);
 
-        x += smallHashValue;
+        x += rulerWidth / 100;
     }
 
     return linesForPercentage;
@@ -268,7 +270,7 @@ function setHorizontalPercentageLine(selection, rulerHeight, rulerWidth) {
     return linesForPercentage;
 }
 
-function rulerHandlerFunction(selection, vertical) {
+function rulerHandlerFunction(selection, vertical, pixels=true) {
 
     var grey = new Color("949494");
     grey.a = 115;
@@ -291,7 +293,12 @@ function rulerHandlerFunction(selection, vertical) {
         selection.insertionParent.addChild(horizontalRuler);
         horizontalRuler.moveInParentCoordinates(0, -rulerHeight - 10);
 
-        var lines = setVerticalPercentageLine(selection, rulerHeight + 10, rulerWidth);
+        if (!pixels) {
+            var lines = setVerticalPercentageLine(selection, rulerHeight + 10, rulerWidth);
+        } else {
+            var lines = setVerticalPixelLine(selection, rulerHeight + 10, rulerWidth);
+        }
+
         lines.push(horizontalRuler)
         selection.items = lines // change context to group of lines
         commands.group("Horizontal Ruler"); // group lines and horizontalLine
@@ -309,12 +316,15 @@ function rulerHandlerFunction(selection, vertical) {
         selection.insertionParent.addChild(verticalRuler);
         verticalRuler.moveInParentCoordinates(-rulerWidth - 10, 0);
 
-        var lines = setHorizontalPercentageLine(selection, rulerHeight, rulerWidth + 10);
+        if (!pixels) {
+            var lines = setHorizontalPercentageLine(selection, rulerHeight, rulerWidth + 10);
+        } else {
+            var lines = setHorizontalPixelLine(selection, rulerHeight, rulerWidth + 10);
+        }
         lines.push(verticalRuler)
         selection.items = lines // change context to group of lines
         commands.group("Verical Ruler"); // group lines and horizontalLine
 
-        console.log(); // print artboard width to console
     }
 
 }
@@ -355,20 +365,27 @@ function createDialog() {
 }
 
 function verticalRuler(selection) {
+    rulerHandlerFunction(selection, true, false);
+}
+
+function vRPixel(selection) {
     rulerHandlerFunction(selection, true);
 }
 
 function horizontalRuler(selection) {
-    rulerHandlerFunction(selection, false);
+    rulerHandlerFunction(selection, false, false);
 }
 
+function hRPixel(selection) {
+    rulerHandlerFunction(selection, false);
+}
 
 
 module.exports = {
     commands: {
         createVerticalRulerPercent: verticalRuler,
         createHorizontalRulerPercent: horizontalRuler,
-        createVerticalRulerPixel: setVerticalPixelLine,
-        createHorizontalRulerPixel: setHorizontalPixelLine
+        createVerticalRulerPixel: vRPixel,
+        createHorizontalRulerPixel: hRPixel
     }
 };

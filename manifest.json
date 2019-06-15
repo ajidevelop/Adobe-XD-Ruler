@@ -38,23 +38,23 @@
         {
             "type": "menu",
             "label": "Vertical Ruler by Percent",
-            "commandId": "createVerticalRulerPercent",
+            "commandId": "createVerticalRulerPercent"
         },
         {
             "type": "menu",
             "label": "Vertical Ruler by Pixels",
-            "commandId": "createVerticalRulerPixel",
+            "commandId": "createVerticalRulerPixel"
 
         },
         {
             "type": "menu",
             "label": "Horizontal Ruler by Percent",
-            "commandId": "createHorizontalRulerPercent",
+            "commandId": "createHorizontalRulerPercent"
         },
         {
             "type": "menu",
             "label": "Horizontal Ruler by Pixels",
-            "commandId": "createHorizontalRulerPixel",
+            "commandId": "createHorizontalRulerPixel"
         }
     ]
 } ],
